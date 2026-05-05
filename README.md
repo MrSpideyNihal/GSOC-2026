@@ -4,78 +4,34 @@
 **Organization:** [MetaCall](https://metacall.io)  
 **Official Repo:** [metacall/core](https://github.com/metacall/core)  
 **Contributor:** [MrSpideyNihal](https://github.com/MrSpideyNihal)  
-**Mentor:** Vicente Eduardo Ferrer Garcia ([@viferga](https://github.com/viferga))
+**Mentor:** Raj Aryan, Mostafa Wael ,Vicente Eduardo Ferrer Garcia ([@viferga](https://github.com/viferga))
+
 
 ---
 
-## Project Description
+## Progress — 13/24 Tasks Done
 
-This project improves code coverage reporting and memory tracking reliability across platforms in MetaCall Core. The work focuses on extending Valgrind and MemorySanitizer (MSan) support, reducing false positives in sanitizer runs, adding reproducible instrumentation tooling, and improving CI observability.
-
----
-
-## Merged PRs ✅
-
-| # | Title | Date |
-|---|-------|------|
-| [#706](https://github.com/metacall/core/pull/706) | ci: add memcheck argument to metacall-environment and metacall-configure scripts | Mar 24 |
-| [#723](https://github.com/metacall/core/pull/723) | fix(memcheck): add ruby suppression and remove duplicate wasm suppression | Mar 25 |
-| [#726](https://github.com/metacall/core/pull/726) | fix(detour): free handle struct in detour_unload() to prevent memory leak | Mar 26 |
-| [#736](https://github.com/metacall/core/pull/736) | feat(msan): add clang install and memory sanitizer configuration | Mar 28 |
-| [#743](https://github.com/metacall/core/pull/743) | ci: add linux memory sanitizer test job | Mar 30 |
-| [#763](https://github.com/metacall/core/pull/763) | chore: add tools/instrumentation folder with MSan and Valgrind helpers | Apr 2026 |
-
----
-
-## Task Progress
-
-### Memory Tracking & Valgrind
-
-| Task | Status |
-|------|--------|
-| Set up Valgrind memcheck pipeline in CI | ✅ Done |
-| Add memcheck flags to environment and configure scripts | ✅ Done |
-| Ruby suppression — reduce false positives | ✅ Done |
-| Reduce Valgrind errors: 62,205 → 104 | ✅ Done |
-| Python + Valgrind standalone Docker image | ✅ Done |
-
-### MemorySanitizer (MSan)
-
-| Task | Status |
-|------|--------|
-| Install clang and configure MSan build | ✅ Done |
-| Add MSan CI job to linux-test.yml | ✅ Done |
-| Add compile-time ignorelist for gtest false positives | ✅ Done |
-| Add runtime MSAN_OPTIONS suppressions | ✅ Done |
-| Reduce CodeLocation false positives: 294 → ~3 | ✅ Done |
-| Fix ext_loader real memory leak | 🔄 In Progress |
-| Add dedicated MSan CI yml file | ⏳ Pending |
-
-### Memory Leaks
-
-| Task | Status |
-|------|--------|
-| Fix detour handle struct memory leak | ✅ Done |
-| Fix py_loader missing Py_XDECREF (PR #764) | 🔄 Open PR |
-| Investigate ext_loader uninitialized value | 🔄 In Progress |
-
-### Instrumentation Tooling
-
-| Task | Status |
-|------|--------|
-| MSan standalone Dockerfile (PoC) | ✅ Done |
-| Valgrind/Python standalone Dockerfile | ✅ Done |
-| Restructure tools/instrumentation folder | ✅ Done |
-| Wire ignorelist into cmake pipeline | ✅ Done |
-
-### CI / Observability
-
-| Task | Status |
-|------|--------|
-| Add memcheck to CI pipeline | ✅ Done |
-| Add MSan job to CI | ✅ Done |
-| Add dedicated MSan yml file | ⏳ Pending |
-| ARM64 / PPC64 debugging | ⏳ Pending |
+| Task | Description | Status | PR |
+|------|-------------|--------|----|
+| Add memcheck to CI scripts | Add memcheck flags to environment and configure scripts | ✅ Done | [#706](https://github.com/metacall/core/pull/706) |
+| Ruby Valgrind suppression | Add ruby suppression, remove duplicate wasm suppression | ✅ Done | [#723](https://github.com/metacall/core/pull/723) |
+| Fix detour memory leak | Free handle struct in detour_unload() | ✅ Done | [#726](https://github.com/metacall/core/pull/726) |
+| Configure MSan build | Install clang and configure memory sanitizer | ✅ Done | [#736](https://github.com/metacall/core/pull/736) |
+| MSan CI job | Add linux memory sanitizer test job | ✅ Done | [#743](https://github.com/metacall/core/pull/743) |
+| Instrumentation tooling | Add MSan and Valgrind instrumentation Dockerfiles | ✅ Done | [#763](https://github.com/metacall/core/pull/763) |
+| Valgrind memcheck pipeline | Set up Valgrind memcheck in CI | ✅ Done | [#706](https://github.com/metacall/core/pull/706) |
+| Reduce Valgrind errors | 62,205 → 104 errors with suppressions | ✅ Done | [#723](https://github.com/metacall/core/pull/723) |
+| Python + Valgrind Docker | Standalone image for Python Valgrind testing | ✅ Done | [#763](https://github.com/metacall/core/pull/763) |
+| MSan compile-time ignorelist | Suppress gtest false positives via -fsanitize-ignorelist | ✅ Done | [#763](https://github.com/metacall/core/pull/763) |
+| MSan runtime suppressions | Wire MSAN_OPTIONS suppressions into build | ✅ Done | [#763](https://github.com/metacall/core/pull/763) |
+| Reduce MSan false positives | CodeLocation errors: 294 → ~3 | ✅ Done | [#763](https://github.com/metacall/core/pull/763) |
+| Fix py_loader memory leak | Add missing Py_XDECREF on inspect_signature results | 🔄 Open PR | [#764](https://github.com/metacall/core/pull/764) |
+| Fix ext_loader uninitialized | Real MSan error in ext_loader_impl.cpp | 🔄 In Progress | — |
+| Dedicated MSan CI yml | New workflow file for MSan testing | ⏳ Pending | — |
+| Custom instrumentation layer | Lightweight allocation/deallocation tracking | ⏳ Pending | — |
+| Code coverage reporting | Integrate coverage reporting into CI | ⏳ Pending | — |
+| ARM64 / PPC64 debugging | Fix failing tests on ARM64 and PPC64 architectures | ⏳ Pending | — |
+| Enhanced CI observability | Better logs and error messages in CI pipelines | ⏳ Pending | — |
 
 ---
 
@@ -83,4 +39,4 @@ This project improves code coverage reporting and memory tracking reliability ac
 
 **Title:** Code Coverage and Memory Tracking Improvements  
 **Size:** Small (90 hours) | **Difficulty:** High  
-**Mentors:** Vicente Eduardo Ferrer Garcia, Thomas Rory Gummerson, Fernando Vaño Garcia
+**Mentors:** Vicente Eduardo Ferrer Garcia, Raj Aryan, Mostafa Wael 
