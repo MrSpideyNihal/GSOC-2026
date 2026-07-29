@@ -10,7 +10,7 @@
 
 **Project size:** Small (90 hours)
 
-**Synopsis:** [metacall/gsoc-2026 — Code Coverage and Memory Tracking Improvements](https://github.com/metacall/gsoc-2026#3-code-coverage-and-memory-tracking-improvements)
+**Synopsis:** [metacall/gsoc-2026   Code Coverage and Memory Tracking Improvements](https://github.com/metacall/gsoc-2026#3-code-coverage-and-memory-tracking-improvements)
 **Contact:** nihalrodge01@gmail.com · [LinkedIn](https://linkedin.com/in/nihalrodge)
 
 ---
@@ -21,7 +21,7 @@ The MetaCall runtime's memory tracking mechanism was very basic and could not de
 
 - Extend and harden support for existing memory-diagnostic tools (Valgrind, AddressSanitizer) for automated testing.
 - Investigate and implement Memory Sanitizer (MSan) integration as a deeper, more precise diagnostic layer.
-- Improve observability in CI — clearer logs, traces, and actionable error messages for hard-to-reproduce bugs.
+- Improve observability in CI   clearer logs, traces, and actionable error messages for hard-to-reproduce bugs.
 - Fix real memory bugs uncovered by this tooling along the way.
 
 ## 2. What I Did
@@ -29,11 +29,11 @@ The MetaCall runtime's memory tracking mechanism was very basic and could not de
 Over the course of GSoC I built out a full MSan CI/CD pipeline for MetaCall from the ground up, alongside parallel hardening of the existing Valgrind/memcheck pipeline. Key pieces of work, roughly in chronological order:
 
 - **Valgrind/memcheck baseline (Mar):** Added a `memcheck` argument to the `metacall-environment` and `metacall-configure` scripts and a dedicated `valgrind-memcheck` CI job, then fixed suppression files (Ruby, WASM duplicate) to remove noise from the existing Valgrind pipeline.
-- **Real memory bug fix (Mar 25):** Fixed a memory leak in `detour_unload()` where the handle struct was never freed — found via the improved memory tooling.
+- **Real memory bug fix (Mar 25):** Fixed a memory leak in `detour_unload()` where the handle struct was never freed   found via the improved memory tooling.
 - **MSan bring-up (Mar 26–30):** Added Clang install + Memory Sanitizer configuration, wired `CC`/`CXX` env vars correctly for the Clang compiler path, added an independent `clang` configure option, and added dedicated `linux-clang-test` and `linux-memory-sanitizer` CI jobs.
 - **Instrumentation tooling layout (Apr):** Restructured the project into a `tools/instrumentation` folder holding both MSan and python-valgrind helper scripts, added gtest MSan instrumentation build support, and wrote Dockerfile + usage docs for both instrumentation paths.
 - **MSan ignorelist system (May 1–5):** Built out the MSan ignorelist and suppression-wiring mechanism so known false positives (e.g. in third-party deps) don't block CI, with correct CMake tab-indentation formatting for `CompileOptions.cmake`.
-- **Real memory bug fix (May 16):** Fixed an uninitialized `set_iterator` in `adt_trie.c`, discovered through the two-stage MSan bootstrap process, alongside implementing that two-stage bootstrap itself (Stage 1: build Clang + `compiler-rt`; Stage 2: build an MSan-instrumented `libc++` against it) — necessary because MSan requires all linked code, including the C++ standard library, to be instrumented to avoid false positives.
+- **Real memory bug fix (May 16):** Fixed an uninitialized `set_iterator` in `adt_trie.c`, discovered through the two-stage MSan bootstrap process, alongside implementing that two-stage bootstrap itself (Stage 1: build Clang + `compiler-rt`; Stage 2: build an MSan-instrumented `libc++` against it)   necessary because MSan requires all linked code, including the C++ standard library, to be instrumented to avoid false positives.
 - **FreeBSD support (May 21):** Added a wildcard symlink for `clang-*` binaries post-install to support MSan builds on FreeBSD.
 - **Valgrind refresh (May 6):** Updated Python suppressions to Python 3.13 and added a `max-stackframe` flag to handle larger stack frames without false Valgrind errors.
 - **Ignorelist correctness (Jun 12):** Fixed the googlebenchmark ignorelist path to correctly match its actual `_deps/googlebenchmark-src` build location.
@@ -83,10 +83,10 @@ Full list is also viewable live at: [github.com/metacall/core/pulls?q=is:pr+is:m
 
 - **MSan requires a fully instrumented stack.** A single-stage MSan build produces constant false positives because uninstrumented C++ standard library code looks "uninitialized" to the sanitizer. The two-stage bootstrap (build Clang + `compiler-rt` first, then build an MSan-instrumented `libc++` against it) was the key insight that made the whole pipeline usable, and is now documented for future contributors.
 - **Ignorelists need to track real build paths, not assumed ones.** The googlebenchmark ignorelist fix (#818) was a reminder that third-party dependency paths can shift (e.g. `_deps/googlebenchmark-src`), and ignorelists silently stop working if not kept in sync.
-- **Cross-platform sanitizer support is fragile.** Getting MSan working on FreeBSD required a `clang-*` wildcard symlink fix that wasn't needed on Linux — a good example of how sanitizer tooling assumptions baked in for one platform don't transfer directly.
+- **Cross-platform sanitizer support is fragile.** Getting MSan working on FreeBSD required a `clang-*` wildcard symlink fix that wasn't needed on Linux   a good example of how sanitizer tooling assumptions baked in for one platform don't transfer directly.
 - **Working with a direct, Socratic mentor.** My mentor, viferga, teaches through probing questions rather than direct answers, which pushed me to verify claims before proposing fixes rather than guessing. Two habits this instilled: always run the fork's own CI before pushing anything upstream, and never suggest a fix without a verifiable source (a stack trace, a sanitizer log, or documentation) backing it.
-- **CI observability matters as much as the fix itself.** Several PRs here (e.g. #743, #847) weren't just "add sanitizer" but "add sanitizer *and* make its failures debuggable" — without clear CI job separation and logging, an intermittent ARM64/PPC64-style failure is nearly impossible to track down.
+- **CI observability matters as much as the fix itself.** Several PRs here (e.g. #743, #847) weren't just "add sanitizer" but "add sanitizer *and* make its failures debuggable"   without clear CI job separation and logging, an intermittent ARM64/PPC64-style failure is nearly impossible to track down.
 
 ---
 
-A huge of thanks to  [@viferga](https://github.com/viferga) for guiding me throughout this journey. I truly appreciate all the support and mentorship!
+A huge  thanks to  [@viferga](https://github.com/viferga) for guiding me throughout this journey. I truly appreciate all the support and mentorship!
