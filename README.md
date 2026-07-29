@@ -6,7 +6,7 @@
 
 **Project:** Code Coverage and Memory Tracking Improvements
 
-**Mentor:** [@viferga](https://github.com/viferga),Mostafa Wael 
+**Mentor:** Raj Aryan,Mostafa Wael 
 
 **Project size:** Small (90 hours)
 
@@ -88,3 +88,5 @@ Full list is also viewable live at: [github.com/metacall/core/pulls?q=is:pr+is:m
 - **CI observability matters as much as the fix itself.** Several PRs here (e.g. #743, #847) weren't just "add sanitizer" but "add sanitizer *and* make its failures debuggable" — without clear CI job separation and logging, an intermittent ARM64/PPC64-style failure is nearly impossible to track down.
 
 ---
+
+A huge of thanks to  [@viferga](https://github.com/viferga) for guiding me throughout this journey. I truly appreciate all the support and mentorship!
